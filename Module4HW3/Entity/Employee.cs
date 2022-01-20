@@ -17,5 +17,6 @@ namespace Module4HW3.Entity
         public Office Office { get; set; }
         public int TitleId { get; set; }
         public Title Title { get; set; }
+        public List<EmployeeProject> EmployeeProjects { get; set; } = new List<EmployeeProject>();
     }
 }
