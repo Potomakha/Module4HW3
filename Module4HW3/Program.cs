@@ -15,10 +15,12 @@ namespace Module4HW3
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             var optionDbBuilder = new DbContextOptionsBuilder<ApplicationContext>();
             var options = optionDbBuilder
-                .UseSqlite(connectionString)
+                .UseSqlServer(connectionString)
                 .Options;
 
             using (var db = new ApplicationContext(options))
+            {
+            }
         }
     }
 }

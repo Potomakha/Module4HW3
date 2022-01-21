@@ -16,11 +16,11 @@ namespace Module4HW3.EntityConfig
             builder.Property(e => e.OfficeId);
             builder.HasOne(e => e.Office)
                 .WithMany(o => o.Employees)
-                .HasForeignKey(e => e.EmployeId)
+                .HasForeignKey(e => e.OfficeId)
                 .OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(e => e.Title)
                 .WithMany(o => o.Employees)
-                .HasForeignKey(e => e.EmployeId)
+                .HasForeignKey(e => e.TitleId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
