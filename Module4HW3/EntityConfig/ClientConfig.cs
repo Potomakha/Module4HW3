@@ -10,7 +10,6 @@ namespace Module4HW3.EntityConfig
         {
             builder.ToTable("Client").HasKey(c => c.ClientId);
             builder.Property(c => c.ClientId).ValueGeneratedOnAdd();
-            builder.Property(c => c.ClientId).IsRequired();
         }
     }
 }
