@@ -8,7 +8,7 @@ namespace Module4HW3.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Office",
+                name: "Office Table",
                 columns: table => new
                 {
                     OfficeId = table.Column<int>(type: "int", nullable: false)
