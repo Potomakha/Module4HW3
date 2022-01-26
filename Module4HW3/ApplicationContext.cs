@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Module4HW3.Entity;
 using Module4HW3.EntityConfig;
 
@@ -18,6 +20,12 @@ namespace Module4HW3
         public DbSet<EmployeeProject> EmployeeProjects { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Client> Clients { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.EnableSensitiveDataLogging().LogTo(Console.WriteLine, LogLevel.Information);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
