@@ -30,6 +30,9 @@ namespace Module4HW3
                 }
 
                 await FirstQuery(context);
+                await SecondQuery(context);
+                await ThirdQuery(context);
+                await SixthQuery(context);
             }
         }
 
@@ -137,6 +140,7 @@ namespace Module4HW3
         public static async Task FirstQuery(ApplicationContext context)
         {
             var multyJoin = await context.Titles.Include(t => t.Employees).ThenInclude(e => e.Office).ToListAsync();
+            Console.WriteLine("First query");
             foreach (var item in multyJoin)
             {
                 var strBuilder = new StringBuilder();
@@ -147,5 +151,49 @@ namespace Module4HW3
 
             Console.WriteLine();
          }
+
+        public static async Task SecondQuery(ApplicationContext context)
+        {
+            var result = await context.Employees.Select(e => DateTime.UtcNow - e.HiredDate).ToListAsync();
+            Console.WriteLine("Second query");
+            foreach (var item in result)
+            {
+                Console.WriteLine(item.Days);
+            }
+
+            Console.WriteLine();
+        }
+
+        public static async Task ThirdQuery(ApplicationContext context)
+        {
+            var updateEmployee = await context.Employees.Where(e => (e.EmployeId % 2) > 0).ToListAsync();
+            var updateOffice = await context.Offices.Where(o => (o.OfficeId % 2) > 0).ToListAsync();
+            updateEmployee.ForEach(e => e.LastName = "Updated");
+            updateOffice.ForEach(e => e.Location = "new location");
+            await context.SaveChangesAsync();
+            Console.WriteLine("Third query");
+            Console.WriteLine();
+        }
+
+        public static async Task FifthQuery(ApplicationContext context)
+        {
+            var toDelete = await context.Employees.FirstOrDefaultAsync();
+            context.Remove(toDelete);
+            await context.SaveChangesAsync();
+            Console.WriteLine("Fifth query");
+        }
+
+        public static async Task SixthQuery(ApplicationContext context)
+        {
+            var groupByResult = context.Titles.Include(t => t.Employees).AsEnumerable().GroupBy(t => t.Name).Where(t => !t.Key.Contains('a')).ToList();
+            Console.WriteLine("Sixth query");
+            foreach (var item in groupByResult)
+            {
+                Console.WriteLine(item.Key);
+            }
+
+            Console.WriteLine();
+            await Task.Delay(0);
+        }
     }
 }
